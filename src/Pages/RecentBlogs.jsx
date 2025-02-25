@@ -4,10 +4,12 @@ import "../App.css";
 import { Link } from "react-router-dom";
 import  {createApiInstance} from '../axiosConfig.js'
 import { useNavigate } from "react-router-dom";
+import Loader from "./Loader.jsx";
 
 const RecentBlogs = () => {
 
   const [blogs, setBlogs] = useState([]);
+  const [loading,setLoading]=useState(false)
   const navigate=useNavigate()
 
  
@@ -16,11 +18,14 @@ const RecentBlogs = () => {
 
   const fetchData = async () => {
     try {
+      setLoading(true)
       const { data } = await api.get(`/user/recent`);
       setBlogs(data?.data);
-      console.log(data?.data);
+      setLoading(false)
+      
     } catch (error) {
       console.error(error)
+      setLoading(false)
       navigate("/")
     }
   };
@@ -58,10 +63,12 @@ const RecentBlogs = () => {
     return words.length; 
   }
 
-
+  
   return (
-    <div className="recent_blogs_container">
-        <div className="item1"></div>
+ <>  
+  {loading && <Loader/>}
+  <div className="recent_blogs_container">
+      <div className="item1"></div>
       <div className="recent_blogs_box_container item2">
         <h1> Recent Blogs</h1>
 
@@ -125,6 +132,8 @@ const RecentBlogs = () => {
         </div>
       </div>
     </div>
+ </>
+   
   );
 };
 
