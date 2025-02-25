@@ -43,19 +43,26 @@ const UserDashboard = () => {
         console.log(data?.data);
       } catch (error) {
         console.error(error)
-        toast.error("Invalid credentials, try again!", {
-          position: "top-center",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "dark",
-          
-          });
+        if(error?.response?.status===401){
+          toast.error("Invalid credentials, try again!", {
+            position: "top-center",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "dark",
+            
+            });
+            navigate("/login")
+
+        }
+
         
-        // navigate("/login")
+       
+        
+        
       }
     };
   

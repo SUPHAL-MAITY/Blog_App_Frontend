@@ -1,6 +1,7 @@
 import { useState }  from "react";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useNavigate } from "react-router-dom";
 
 import axios from "axios";
 
@@ -21,6 +22,7 @@ const Signup = () => {
   const[countryCode,setCountryCode]=useState("")
   // const [role,setRole]=useState("")
   const [profileUrl,setProfileUrl]=useState("")
+  const navigate=useNavigate()
 
 
 
@@ -142,7 +144,7 @@ const Signup = () => {
       setCountryCode("")
       setPasword("")
       toast("user created successfully")
-    
+      navigate("/login")
     }
     
   } catch (error) {
