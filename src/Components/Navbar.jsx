@@ -7,9 +7,7 @@ import { useAuth } from "../hooks/checkAuth.js";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  // const [role,setRole]=useState("viewer")
-
-  // const api=createApiInstance()
+  
   const navigate = useNavigate();
 
   const { role, error, loading } = useAuth(navigate);
@@ -35,6 +33,7 @@ const Navbar = () => {
   };
 
   return (
+    
     <>
       <header>
         <nav className="navbar">
@@ -51,32 +50,32 @@ const Navbar = () => {
 
           {/* Navbar Links */}
           <ul className={`nav-links ${isMenuOpen ? "active" : ""}`}>
-            <li className="nav_links_menu">
-              <NavLink to="/">Home</NavLink>{" "}
+            <li className="nav_links_menu" onClick={handleMenuToggle}>
+              <NavLink to="/" >Home</NavLink>{" "}
             </li>
-            <li className="nav_links_menu">
-              <NavLink to="/all-blogs">Blogs</NavLink>
+            <li className="nav_links_menu" onClick={handleMenuToggle}>
+              <NavLink to="/all-blogs" >Blogs</NavLink>
             </li>
-            <li className="nav_links_menu">
-              <NavLink to="/blogs">Recent</NavLink>
+            <li className="nav_links_menu" onClick={handleMenuToggle}>
+              <NavLink to="/blogs" >Recent</NavLink>
             </li>
 
-            <li className="nav_links_menu">
+            <li className="nav_links_menu" onClick={handleMenuToggle}>
               {/* {role} */}
               {role == "none" ? (
-                <NavLink to="/login">login</NavLink>
+                <NavLink to="/login" >login</NavLink>
               ) : (
                 <NavLink onClick={handleLogout}>logout</NavLink>
               )}
             </li>
             
 
-            <li   style={{display:role!=="none"?"none":"" }} className="nav_links_menu">
+            <li   style={{display:role!=="none"?"none":"" }} className="nav_links_menu" onClick={handleMenuToggle}>
               <NavLink  to="/signup">Signup</NavLink>
             </li>
 
             {role !== "none" && (
-               <li className="nav_links_menu">
+               <li className="nav_links_menu" onClick={handleMenuToggle}>
                <NavLink
                  to={role == "admin" ? "/admin-dashboard" : "/user-dashboard"}
                >
