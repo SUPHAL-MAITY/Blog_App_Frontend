@@ -2,13 +2,16 @@ import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 
 import CategoryBlogList from "../Components/CategoryBlogList.jsx";
+import Loader from "./Loader.jsx";
 
 const BlogByCategory = () => {
   const { category } = useParams();
+  const [loading,setLoading]=useState(false)
 
   ///for pagination
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
+
 
   ///pagination
   const handlePreviousPage = () => {
@@ -27,38 +30,54 @@ const BlogByCategory = () => {
 
   return (
     <>
-      <div className="blog_app">
-        <main>
-          <CategoryBlogList
-            currentPage={currentPage}
-            category={category}
-            totalPages={totalPages}
-            setTotalPages={setTotalPages}
-          />
-        </main>
+     { console.log(" loading ..........",loading) }
 
-        <div id="pagination-footer">
-          <button
-            id="prev-page"
-            className="pagination-button"
-            disabled={currentPage == 1}
-            onClick={handlePreviousPage}
-          >
-            <i className="fa-solid fa-angle-left"></i>
-          </button>
+     {loading && <Loader/>}
+     
+       <div className="blog_app">
+       <main>
+         <CategoryBlogList
+           currentPage={currentPage}
+           category={category}
+           totalPages={totalPages}
+           setTotalPages={setTotalPages}
+           setLoading={setLoading}
+         />
+       </main>
 
-          <button
-            id="next-page"
-            className="pagination-button"
-            disabled={currentPage == totalPages}
-            onClick={handleNextPage}
-          >
-            <i className="fa-solid fa-angle-right"></i>
-          </button>
-        </div>
-        {currentPage}
+       {!loading && (
+             <div id="pagination-footer">
+             <button
+               id="prev-page"
+               className="pagination-button"
+               disabled={currentPage == 1}
+               onClick={handlePreviousPage}
+             >
+               <i className="fa-solid fa-angle-left"></i>
+             </button>
+    
+             <button
+               id="next-page"
+               className="pagination-button"
+               disabled={currentPage == totalPages}
+               onClick={handleNextPage}
+             >
+               <i className="fa-solid fa-angle-right"></i>
+             </button>
+             </div>
+
+       )}
+    
+           
+         
        
-      </div>
+
+       
+      
+     </div>
+
+     
+     
     </>
   );
 };

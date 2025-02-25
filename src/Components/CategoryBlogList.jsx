@@ -7,8 +7,9 @@ import  {createApiInstance} from '../axiosConfig.js'
 import { useNavigate } from "react-router-dom";
 
 
-const CategoryBlogList = ({ currentPage, totalPages, setTotalPages,category }) => {
+const CategoryBlogList = ({ currentPage, totalPages, setTotalPages,category,setLoading }) => {
     const [blogs, setBlogs] = useState([]);
+    
 
     const convertDate=(string)=>{
 
@@ -32,12 +33,15 @@ const CategoryBlogList = ({ currentPage, totalPages, setTotalPages,category }) =
   
     const fetchData = async () => {
           try {
+            setLoading(true)
             const { data } = await api.get(`/user/category/${category}?page=${currentPage}`);
             setBlogs(data?.data?.blogs);
             setTotalPages(data?.data?.totalPages)
+            setLoading(false)
             console.log(data?.data);
           } catch (error) {
             console.error(error)
+            setLoading(false)
             navigate("/")
           }
         };
