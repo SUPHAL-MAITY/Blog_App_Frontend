@@ -7,7 +7,7 @@ import  {createApiInstance} from '../axiosConfig.js'
 import { useNavigate } from "react-router-dom";
 
 
-const CategoryBlogList = ({ currentPage, totalPages, setTotalPages,category,setLoading }) => {
+const CategoryBlogList = ({ currentPage, totalPages, setTotalPages,category,setLoading,loading }) => {
     const [blogs, setBlogs] = useState([]);
     
 
@@ -67,7 +67,8 @@ const CategoryBlogList = ({ currentPage, totalPages, setTotalPages,category,setL
 
   return (
     <div className="blog-list">
-    <h1>{category}</h1>
+      {!loading && ( <h1>{category}</h1> )}
+   
     {blogs.map((blog) => {
       const newString = convertDate(blog.createdAt);
       return (

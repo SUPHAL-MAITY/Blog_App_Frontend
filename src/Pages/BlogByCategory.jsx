@@ -42,6 +42,7 @@ const BlogByCategory = () => {
            totalPages={totalPages}
            setTotalPages={setTotalPages}
            setLoading={setLoading}
+           loading={loading}
          />
        </main>
 
