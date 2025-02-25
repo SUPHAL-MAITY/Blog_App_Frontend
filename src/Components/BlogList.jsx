@@ -6,8 +6,9 @@ import "../styles/blogCard.css";
 import { createApiInstance } from "../axiosConfig.js";
 import { useNavigate } from "react-router-dom";
 
-const BlogList = ({ currentPage, totalPages, setTotalPages }) => {
+const BlogList = ({ currentPage, totalPages, setTotalPages,setLoading }) => {
   const [blogs, setBlogs] = useState([]);
+  
 
 
   const convertDate = (string) => {
@@ -29,15 +30,19 @@ const BlogList = ({ currentPage, totalPages, setTotalPages }) => {
 
   const fetchData = async () => {
     try {
+      setLoading(true)
       const { data } = await api.get(
         `/user/all-user-blogs?page=${currentPage}`
       );
       setBlogs(data?.data?.blogs);
       setTotalPages(data?.data?.totalPages);
+      setLoading(false)
       console.log(data?.data);
     } catch (error) {
       console.error(error);
+      setLoading(false)
       navigate("/");
+
     }
   };
 
