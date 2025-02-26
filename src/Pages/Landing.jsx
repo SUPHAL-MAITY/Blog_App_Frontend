@@ -73,6 +73,10 @@ const Landing = () => {
           </div>
         </section>
       </main>
+      <div className="footer">
+         <p className="footer-p1">Get In Touch</p>
+         <p>suphalmaity730@gmail.com</p>
+      </div>
     </>
   );
 };
