@@ -99,7 +99,7 @@ const RecentBlogs = () => {
                 {/* <h1>{c.title.length > 40 ? c.title.slice(0,40) +"..." : c.title}</h1> */}
                 
 
-                <Link target='_blank'  className="no-underline" to={`/single-blogs/${c._id}`}>
+                <Link  className="no-underline" to={`/single-blogs/${c._id}`}>
                   <h2>{c.title}</h2>
                 </Link>
 
