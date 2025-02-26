@@ -9,7 +9,7 @@ const BlogCard = ({ title, author, content, createdAt, image,id }) => {
         <img src={image} alt={title} />
       </div>
       <div className="blog-card-content">
-        <Link target='_blank'  className="no-underline" to={`/single-blogs/${id}`}>
+        <Link  className="no-underline" to={`/single-blogs/${id}`}>
           <h2>{title}</h2>
         </Link>
       
