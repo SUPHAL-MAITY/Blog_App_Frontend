@@ -178,7 +178,7 @@ const UserDashboard = () => {
         </div>
 
         <div className="users_table_container">
-          <div style={{ overflow: "auto" }}>
+          <div style={{ overflowX: "auto" }}>
             <table>
               <thead>
                 <tr>

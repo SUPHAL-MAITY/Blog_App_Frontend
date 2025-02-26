@@ -73,6 +73,16 @@
     color: #333;
 }
 
+.single_page_button{
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+}
+
+.single_page_button button{
+    margin: 5px;
+}
+
 /* Responsive design for smaller screens */
 @media (max-width: 768px) {
     .popular-posts{

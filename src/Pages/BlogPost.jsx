@@ -2,12 +2,9 @@ import React ,{useState} from 'react'
 import "../styles/blogEdit.css"
 
 import { createApiInstance } from '../axiosConfig'
-
-
-
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
+import { useNavigate } from 'react-router-dom';
 
 const BlogPost = () => {
 
@@ -16,6 +13,7 @@ const BlogPost = () => {
     const [category, setCategory] = useState('');
     const [content, setContent] = useState("");
     const [imageUrl, setImageUrl] = useState("");
+    const navigate=useNavigate()
     
     const api=createApiInstance()
 
@@ -83,6 +81,52 @@ const BlogPost = () => {
         
     } catch (error) {
         console.log(error)
+       
+
+
+          if(error.response.status===500){
+            toast.error("something went wrong.please login again", {
+              position: "top-center",
+              autoClose: 5000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "dark",
+    
+              });
+             
+              setTitle("")
+              setCategory("")
+              setContent("")
+              setImageUrl("")
+
+              setTimeout(()=>{
+                navigate("/login")
+              },1000)
+
+          }else{
+            toast.error("something went wrong.please login again", {
+              position: "top-center",
+              autoClose: 5000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "dark",
+    
+              });
+             
+              setTitle("")
+              setCategory("")
+              setContent("")
+              setImageUrl("")
+          }
+
+
+         
         
     }
 }

@@ -1,36 +1,34 @@
-import React, { useEffect,useState } from 'react'
-import { useParams } from 'react-router-dom'
-import axios from"axios"
+import React, { useEffect, useState } from "react";
+import { useParams,useNavigate } from "react-router-dom";
+import axios from "axios";
 import { Link } from "react-router-dom";
 
-import "../styles/singleBlog.css"
+import "../styles/singleBlog.css";
 import Loader from "./Loader.jsx";
 
-
 const SingleBlog = () => {
-  const {id}=useParams()
+  const { id } = useParams();
   const apiUrl = process.env.REACT_APP_API_URL;
 
-  const [blog,setBlog]=useState([])
-  const [popularBlogs,setPopularBlogs]=useState([])
-  const [loading,setLoading]=useState(false)
- 
+  const [blog, setBlog] = useState([]);
+  const [popularBlogs, setPopularBlogs] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const navigate=useNavigate()
 
- const  fetchSingleBlog=async()=>{
-
-  try {
-    setLoading(true)
-    const { data } = await axios.get(`${apiUrl}/api/v1/user/single-blog/${id}`);
-    setLoading(false)
-    setBlog(data?.data)
-    console.log(data?.data);
-  } catch (error) {
-    console.error(error)
-    setLoading(false)
-  }
-
-  }
-
+  const fetchSingleBlog = async () => {
+    try {
+      setLoading(true);
+      const { data } = await axios.get(
+        `${apiUrl}/api/v1/user/single-blog/${id}`
+      );
+      setLoading(false);
+      setBlog(data?.data);
+      console.log(data?.data);
+    } catch (error) {
+      console.error(error);
+      setLoading(false);
+    }
+  };
 
   const fetchPopularBlogs = async () => {
     try {
@@ -42,13 +40,11 @@ const SingleBlog = () => {
     }
   };
 
-  useEffect(()=>{
-    fetchSingleBlog()
-    fetchPopularBlogs()
+  useEffect(() => {
+    fetchSingleBlog();
+    fetchPopularBlogs();
+  }, [id]);
 
-  },[id])
-
- 
   const convertDate = (string) => {
     const date = new Date(string);
 
@@ -61,76 +57,72 @@ const SingleBlog = () => {
     return formattedDate;
   };
 
+  const handleBack=()=>{
+    console.log("back clicked")
+    navigate(-1)
+  }
+
+  const handleTop=()=>{
+    window.scrollTo({top:0,behavior:"smooth"})
+  }
 
   return (
     <>
-   
-   {loading && <Loader/>}
+      {loading && <Loader />}
 
-
-<div className="single-box-container">
-        
+      <div className="single-box-container">
         <div className="single-main-content">
-        
-            <div className="single_blog_author">
-                <p>By <strong> {blog?.author ? blog?.author?.name:"Unknown"} | <span> {convertDate(blog.createdAt)}</span> </strong></p> 
-                
-            </div>
+          <div className="single_blog_author">
+            <p>
+              By{" "}
+              <strong>
+                {" "}
+                {blog?.author ? blog?.author?.name : "Unknown"} |{" "}
+                <span> {convertDate(blog.createdAt)}</span>{" "}
+              </strong>
+            </p>
+          </div>
 
-            
-            <div className="single-blog-image">
-                <img  src={blog.imageUrl} alt="Blog Image"/>
-            </div>
+          <div className="single-blog-image">
+            <img src={blog.imageUrl} alt="Blog Image" />
+          </div>
 
-           
-            <div className="blog-desc">
-                <h1>{blog?.title}</h1>
-                <p> {blog?.content}</p>
-            </div>
+          <div className="blog-desc">
+            <h1>{blog?.title}</h1>
+            <p> {blog?.content}</p>
+          </div>
         </div>
 
-       
         <div className="popular-posts">
-            <h2>Popular Posts</h2>
-            <ul>
+          <h2>Popular Posts</h2>
+          <ul>
+            {/* excluding the main content */}
 
-              {/* excluding the main content */}
-
-              {popularBlogs.filter(c=>c._id!==blog?._id).map((c)=>{
-                
-                return(
-                  <li className='popular-post-item' key={c._id}>
-                      <Link
+            {popularBlogs
+              .filter((c) => c._id !== blog?._id)
+              .map((c) => {
+                return (
+                  <li className="popular-post-item" key={c._id}>
+                    <Link
                       to={`/single-blogs/${c._id}`}
                       className="blog-title-link"
                     >
-
-                          <img src={c.imageUrl} alt="Post 1"/>
+                      <img src={c.imageUrl} alt="Post 1" />
                     </Link>
-                
-                
-              </li>
-              
-
-                )
+                  </li>
+                );
               })}
-               
-            </ul>
+          </ul>
         </div>
-    </div>
+      </div>
+      <div className="single_page_button">
+         <button  onClick={handleBack}>Back</button>
+         <button onClick={handleTop}>Go Top</button>
 
+      </div>
+      
+    </>
+  );
+};
 
-
-
-
-
-
-
-
-
-
-  </>
-  )
-}
-
-export default SingleBlog
+export default SingleBlog;
