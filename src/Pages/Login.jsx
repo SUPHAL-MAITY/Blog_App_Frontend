@@ -41,6 +41,7 @@ const Login = () => {
         });
 
         setPhone("");
+        setPassword("")
       } else {
         toast.error("Something went wrong, please login again!", {
           position: "top-center",
@@ -54,6 +55,7 @@ const Login = () => {
         });
 
         setPhone("");
+        setPassword("")
 
         localStorage.removeItem("accessToken");
       }
