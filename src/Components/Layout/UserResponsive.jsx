@@ -19,10 +19,10 @@ const UserResponsive = () => {
         
         <nav>
           <ul>
-               <li className=""  id='panel_link'><span>📈</span><Link to="/user-dashboard"> Dashboard</Link> </li>            
-               <li className=""><span>📝</span><Link to="/blog-post">Create Blog</Link></li>
-               <li className=""><span>⚙️</span><Link to="/user-edit">Setting</Link></li>
-               <li className=""><span>🏠</span><Link to="/"> Home</Link> </li>
+               <li className=""  id='panel_link' onClick={toggleSidebar} ><span>📈</span><Link to="/user-dashboard"> Dash</Link> </li>            
+               <li className="" onClick={toggleSidebar}><span>📝</span><Link to="/blog-post">Create</Link></li>
+               <li className="" onClick={toggleSidebar}><span>⚙️</span><Link to="/user-edit">Setting</Link></li>
+               <li className="" onClick={toggleSidebar}><span>🏠</span><Link to="/"> Home</Link> </li>
           </ul>
         </nav>
       </div>
